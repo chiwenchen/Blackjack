@@ -45,42 +45,42 @@ end
 def show_table(all_cards, player_cards, dealer_cards, uncover)
 	system 'clear'
 	#-------------show dealer's cards------------
-	print "      "
-	dealer_cards.count.times do
-		print "#{"---- "} "
-	end
+	# print "      "
+	# dealer_cards.count.times do
+	# 	print "#{"---- "} "
+	# end
 	puts " "
-	print "dealer"
+	print "Dealer's cards: "
 	dealer_cards.each do |card|
 		if dealer_cards.index(card) != 1 || (dealer_cards.index(card) == 1 && uncover == true)
 		print "[#{card.join}] "
 		else
-		print "[??]" 
+		print "[coverd]" 
 		end
 	end
   print " Dealer has #{sum_up(dealer_cards)} point" if uncover == true
 	puts " "
-	print "      "
-	dealer_cards.count.times do
-	print "#{"---- "} "
-	end
+	# print "      "
+	# dealer_cards.count.times do
+	# print "#{"---- "} "
+	# end
 	puts " "
 #-------------show player's cards---------------
-	print "      "
-	player_cards.count.times do
-		print "#{"---- "} "
-	end
+	# print "      "
+	# player_cards.count.times do
+	# 	print "#{"---- "} "
+	# end
 	puts " "
-	print "player"
+	print "Player's cards: "
 	player_cards.each do |card|
 		print "[#{card.join}] "
 	end
 	print "  You get #{sum_up(player_cards)} points" 
 	puts " "
-	print "      "
-	player_cards.count.times do
-	print "#{"---- "} "
-	end
+	# print "      "
+	# player_cards.count.times do
+	# print "#{"---- "} "
+	# end
 	puts " "
 end
 
@@ -135,6 +135,10 @@ begin
 		if sum > 21
 			stop_player_round = "Busted!!"
 		end
+		if sum == 21
+			puts "You hit blackjack!!"
+			break
+		end
 	end until stop_player_round
 
 	if stop_player_round == "Busted!!"
@@ -145,7 +149,7 @@ begin
 		 dealer_round(all_cards, player_cards, dealer_cards, uncover)
 		 show_table(all_cards, player_cards, dealer_cards, uncover)
 		end until sum_up(dealer_cards)  >= sum_up(player_cards) 
-		if sum_up(dealer_cards) <= 21
+		if sum_up(dealer_cards) < 21
 			puts "Dealer Win!!"
 		elsif sum_up(dealer_cards) == sum_up(player_cards)
 			puts "It's a Tie!"
