@@ -26,7 +26,7 @@ require 'pry'
 # 6 announce winner 
 
 cards = [1,2,3,4,5,6,7,8,9,10,"J","Q","K"]
-suits = ['H', 'S', 'D', 'C']
+suits = ['Heart-', 'Spades-', 'Diamonds-', 'Clubs-']
 all_cards = suits.product(cards)
 player_cards = []
 dealer_cards = []
@@ -58,18 +58,9 @@ def show_table(all_cards, player_cards, dealer_cards, uncover)
 		print "[coverd]" 
 		end
 	end
-  print " Dealer has #{sum_up(dealer_cards)} point" if uncover == true
-	puts " "
-	# print "      "
-	# dealer_cards.count.times do
-	# print "#{"---- "} "
-	# end
+  print " Dealer has #{sum_up(dealer_cards)} points" if uncover == true
 	puts " "
 #-------------show player's cards---------------
-	# print "      "
-	# player_cards.count.times do
-	# 	print "#{"---- "} "
-	# end
 	puts " "
 	print "Player's cards: "
 	player_cards.each do |card|
@@ -77,10 +68,6 @@ def show_table(all_cards, player_cards, dealer_cards, uncover)
 	end
 	print "  You get #{sum_up(player_cards)} points" 
 	puts " "
-	# print "      "
-	# player_cards.count.times do
-	# print "#{"---- "} "
-	# end
 	puts " "
 end
 
@@ -94,11 +81,6 @@ def player_choice(all_cards, player_cards, dealer_cards, uncover)
 	begin
 		puts "You wanna Stay or Hit. S)Stay H)Hit"
 		player_choice = gets.chomp.upcase
-		sum = sum_up(player_cards)
-		# if sum < 17 && player_choice == "S"
-		# 	puts "Your point must greater than 17"
-		# 	player_choice = " "
-		# end
 	end until player_choice == "H" || player_choice == "S"
 	if player_choice == "H"
 		get_card(all_cards, player_cards)
@@ -148,15 +130,17 @@ begin
 		begin
 		 dealer_round(all_cards, player_cards, dealer_cards, uncover)
 		 show_table(all_cards, player_cards, dealer_cards, uncover)
-		end until sum_up(dealer_cards)  >= sum_up(player_cards) 
-		if sum_up(dealer_cards) < 21
-			puts "Dealer Win!!"
+		end until sum_up(dealer_cards)  >= 17 
+
+		if sum_up(dealer_cards) > 21 || sum_up(dealer_cards) < sum_up(player_cards)
+			puts "Player win!!"
 		elsif sum_up(dealer_cards) == sum_up(player_cards)
 			puts "It's a Tie!"
 		else
-			puts "Player Win!!"
+			puts "Dealer Win!!"
 		end
 	end 
+
 	puts "Wanna play again? Y) Yes"
 	play_again = gets.chomp.upcase
 	if play_again == "Y"
