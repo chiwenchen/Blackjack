@@ -1,4 +1,5 @@
 require 'pry'
+#Blackjack
 # s: 黑桃 h: 紅心 d: 方塊 c: 梅花
 
 # initial table
